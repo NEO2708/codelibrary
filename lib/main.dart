@@ -1,5 +1,8 @@
-import 'package:codelibrary/otp.dart';
+
+
+import 'package:codelibrary/mainScreens/homePage.dart';
 import 'package:codelibrary/signup.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SignupScreen(),
+      home: HomePage(),
     );
   }
 }

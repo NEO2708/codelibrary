@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:codelibrary/colors.dart';
-import 'package:codelibrary/homePage.dart';
+import 'package:codelibrary/mainScreens/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
