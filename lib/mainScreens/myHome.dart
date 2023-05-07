@@ -1,11 +1,10 @@
 import 'package:codelibrary/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-
-
 class MyHome extends StatefulWidget {
-  const MyHome({super.key});
+  MyHome({super.key});
 
   @override
   State<MyHome> createState() => _MyHomeState();
@@ -14,6 +13,9 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
+    
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: NestedScrollView(
           floatHeaderSlivers: true,
@@ -24,7 +26,7 @@ class _MyHomeState extends State<MyHome> {
                 pinned: true,
                 flexibleSpace: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16),
-                  height: 160,
+                  height: kIsWeb ?  70:160,
                   color: screenBgcolor,
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +93,8 @@ class _MyHomeState extends State<MyHome> {
     );
   }
 }
-// Card used in all 
+
+// Card used in all
 class CourseCard extends StatelessWidget {
   const CourseCard({super.key});
 
@@ -230,7 +233,7 @@ class CourseCard extends StatelessWidget {
 
 // Registered course row
 class RegisteredRow extends StatelessWidget {
-   RegisteredRow({super.key});
+  RegisteredRow({super.key});
 
   final _scrollController = ScrollController();
 
@@ -329,7 +332,7 @@ class RegisteredRow extends StatelessWidget {
 
 // Aailable course row
 class AvailabledRow extends StatelessWidget {
-   AvailabledRow({super.key});
+  AvailabledRow({super.key});
 
   final _scrollController = ScrollController();
 
