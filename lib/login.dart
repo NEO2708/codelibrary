@@ -40,9 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-
                     "Welcome".text.color(simpleWhite).xl4.make(),
-
                     const SizedBox(
                       height: 30,
                     ),
@@ -85,9 +83,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (_formKey.currentState!.validate()) {
                             String emailController = _emailController.text;
                             // Navigate to the OTP screen
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(builder: (context)=>OtpScreen(email: _emailController.text)));
-                           
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => OtpScreen(
+                                        email: _emailController.text)));
                           }
                         },
                         child: "Log In".text.xl2.white.bold.make(),
@@ -107,8 +106,45 @@ class _LoginScreenState extends State<LoginScreen> {
                                   MaterialPageRoute(
                                       builder: (context) => SignupScreen()));
                             },
-                            child: "Sign UP".text.bold.xl2.make())
+                            child: "Sign UP".text.bold.xl2.make()),
                       ],
+                    ),
+                    SizedBox(height: 20,),
+                    Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                    
+                              "or".text.color(simpleWhite).xl.make(),
+                              SizedBox(height: 20,),
+                              Container(
+                                width: 300,
+                                padding: EdgeInsets.all(20),
+                               
+                                decoration: BoxDecoration(
+                                   color:cardBgcolor,
+                                   borderRadius: BorderRadius.circular(30),
+                                   border: Border.all(color: simpleWhite,width: 2)
+                                ),
+                                
+                                child: ElevatedButton(
+                                  
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(cardBgcolor),
+                                    elevation: MaterialStateProperty.all(0)
+                                    
+                                    
+                                  ),
+                                  onPressed: () {
+                                  
+                                },child: Row(children: [
+                                  Image.network("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/588px-Google_%22G%22_Logo.svg.png").w(20),
+                                  SizedBox(width: 20,),
+                                  "LogIn with Google".text.xl2.color(simpleWhite).make()
+                                ]),),
+                              )
+                        ],
+                      ),
                     )
                   ],
                 ),

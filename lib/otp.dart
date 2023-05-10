@@ -3,6 +3,7 @@
 
 import 'package:codelibrary/colors.dart';
 import 'package:codelibrary/mainScreens/homePage.dart';
+import 'package:codelibrary/mainScreens/myHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -75,7 +76,7 @@ class OtpScreen extends StatelessWidget {
                         if (formKey.currentState!.validate()) {
                           // Navigate to the Home screen
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => MyHome()));
                         }
                       },
                       child: "Verify".text.xl2.white.bold.make(),
