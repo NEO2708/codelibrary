@@ -3,7 +3,6 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'package:codelibrary/colors.dart';
