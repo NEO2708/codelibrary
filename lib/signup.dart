@@ -1,7 +1,10 @@
-import 'package:codelibrary/colors.dart';
-import 'package:codelibrary/login.dart';
+// ignore_for_file: file_names, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_constructors, sized_box_for_whitespace, prefer_typing_uninitialized_variables, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'package:codelibrary/colors.dart';
+import 'package:codelibrary/login.dart';
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -28,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 600,
           child: SingleChildScrollView(
             child: Padding(

@@ -1,10 +1,13 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable
+
 import 'package:codelibrary/colors.dart';
+import 'package:codelibrary/mainScreens/courseDetail.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MyHome extends StatefulWidget {
-  MyHome({super.key});
+  const MyHome({super.key});
 
   @override
   State<MyHome> createState() => _MyHomeState();
@@ -49,10 +52,12 @@ class _MyHomeState extends State<MyHome> {
                     height: 80,
                     width: MediaQuery.of(context).size.width,
                     color: screenBgcolor,
-                    child: Row(
+                    child: 
+                    Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
+                          // Search bar
+                          SizedBox(
                               width: MediaQuery.of(context).size.width - 20,
                               child: TextField(
                                 decoration: InputDecoration(
@@ -84,8 +89,8 @@ class _MyHomeState extends State<MyHome> {
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    RegisteredRow(),
-                    AvailabledRow(),
+                    RegisteredRow(), // Show Registered Row
+                    AvailabledRow(), // Show Available Row
                   ],
                 )),
           )),
@@ -102,8 +107,13 @@ class CourseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
       width: screenWidth <= 610 ? screenWidth - 50 : 500,
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15)
+        ),
+        clipBehavior: Clip.antiAlias,
         color: cardBgcolor,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -227,7 +237,7 @@ class CourseCard extends StatelessWidget {
         ),
       ),
     );
-    ;
+    
   }
 }
 
@@ -275,7 +285,7 @@ class RegisteredRow extends StatelessWidget {
       ),
       screenWidth >= 610
           ? Center(
-              child: Container(
+              child: SizedBox(
                 width: 1610,
                 child: Row(
                   children: [
@@ -293,7 +303,8 @@ class RegisteredRow extends StatelessWidget {
                         child: Container(
                           child: Row(
                             children: <Widget>[
-                              CourseCard(),
+                              // Desktop
+                  GestureDetector(onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CourseContent())), child: CourseCard()),
                               CourseCard(),
                               CourseCard(),
                               CourseCard(),
@@ -314,11 +325,13 @@ class RegisteredRow extends StatelessWidget {
                 ),
               ),
             )
+            // Mobile
           : SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  CourseCard(),
+                  // Mobile
+                  GestureDetector(onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CourseContent())), child: CourseCard()),
                   CourseCard(),
                   CourseCard(),
                   CourseCard(),
@@ -389,16 +402,15 @@ class AvailabledRow extends StatelessWidget {
                       child: SingleChildScrollView(
                         controller: _scrollController,
                         scrollDirection: Axis.horizontal,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              CourseCard(),
-                              CourseCard(),
-                              CourseCard(),
-                              CourseCard(),
-                              CourseCard(),
-                            ],
-                          ),
+                        child: Row(
+                          children: const[
+                            // Desktop
+                            CourseCard(),
+                            CourseCard(),
+                            CourseCard(),
+                            CourseCard(),
+                            CourseCard(),
+                          ],
                         ),
                       ),
                     ),
@@ -416,7 +428,8 @@ class AvailabledRow extends StatelessWidget {
           : SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: [
+                children: const[
+                  // mobile
                   CourseCard(),
                   CourseCard(),
                   CourseCard(),

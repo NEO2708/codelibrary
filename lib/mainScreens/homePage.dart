@@ -20,28 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: Drawer(
-      //   backgroundColor: screenBgcolor,
-      //   child: ListView(
-      //     children: [
-      //       DrawerHeader(
-      //           child: UserAccountsDrawerHeader(
-      //               accountEmail: "Register".text.make(),
-      //               accountName: null,
-      //               currentAccountPicture: CircleAvatar(
-      //                 backgroundImage: NetworkImage(
-      //                     "https://pbs.twimg.com/profile_images/1485050791488483328/UNJ05AV8_400x400.jpg"),
-      //               )))
-      //     ],
-      //   ),
-      // ),
-      // appBar: AppBar(
-      //   title: "Code Library".text.xl2.bold.make(),
-      //   centerTitle: false,
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   actions: [],
-      // ),
+      
       bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
             setState(() {

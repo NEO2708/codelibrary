@@ -1,9 +1,9 @@
+// ignore_for_file: sized_box_for_whitespace, unused_local_variable
+
 import 'package:codelibrary/Signup.dart';
 import 'package:codelibrary/colors.dart';
 import 'package:codelibrary/otp.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             String emailController = _emailController.text;
                             // Navigate to the OTP screen
                             Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context)=>OtpScreen(email: _emailController.text)));
+                                .pushReplacement(MaterialPageRoute(builder: (context)=>OtpScreen(email: _emailController.text)));
                            
                           }
                         },

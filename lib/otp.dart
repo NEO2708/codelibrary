@@ -1,11 +1,10 @@
-import 'dart:io';
+
+// ignore_for_file: prefer_const_constructors
 
 import 'package:codelibrary/colors.dart';
 import 'package:codelibrary/mainScreens/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class OtpScreen extends StatelessWidget {
@@ -15,7 +14,7 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: "Code Library".text.xl2.bold.make(),
@@ -25,12 +24,12 @@ class OtpScreen extends StatelessWidget {
       ),
       body: Center(
         child: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
           width: 600,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,7 +51,7 @@ class OtpScreen extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                    children: const [
                       SizedBox(height: 10,),
                       OTPBOX(),
                       OTPBOX(),
@@ -64,7 +63,7 @@ class OtpScreen extends StatelessWidget {
                   SizedBox(
                     height: 50,
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
@@ -73,7 +72,7 @@ class OtpScreen extends StatelessWidget {
                         backgroundColor: MaterialStateProperty.all(buttoncolor),
                       ),
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
+                        if (formKey.currentState!.validate()) {
                           // Navigate to the Home screen
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
                               builder: (context) => HomePage()));
@@ -106,6 +105,7 @@ class OTPBOX extends StatelessWidget {
           if (value!.isEmpty) {
             return "!";
           }
+          return null;
         },
         onChanged: (value) {
           if (value.length == 1) {
