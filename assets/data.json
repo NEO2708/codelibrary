@@ -1,0 +1,91 @@
+{
+    "enrolledCourses": [],
+    "availableCourses": [
+        {
+            "course_id": "Java-101",
+            "title": "Introduction to Java",
+            "details": [
+                {
+                    "topic": "Why Java? Market outlook.",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t1",
+                    "_id": "645bace119a88071817b5215"
+                },
+                {
+                    "topic": "Introduction to Java",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t2",
+                    "_id": "645bace119a88071817b5216"
+                },
+                {
+                    "topic": "Data types",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t3",
+                    "_id": "645bace119a88071817b5217"
+                },
+                {
+                    "topic": "Classes",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t4",
+                    "_id": "645bace119a88071817b5218"
+                },
+                {
+                    "topic": "Strings",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t5",
+                    "_id": "645bace119a88071817b5219"
+                },
+                {
+                    "topic": "Loops",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Java-101/t6",
+                    "_id": "645bace119a88071817b521a"
+                }
+            ],
+            "price": "600"
+        },
+        {
+            "course_id": "Python-101",
+            "title": "Introduction to Python",
+            "details": [
+                {
+                    "topic": "Why Python? Market outlook.",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t1",
+                    "_id": "645bad0d19a88071817b521d"
+                },
+                {
+                    "topic": "Introduction to Python",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t2",
+                    "_id": "645bad0d19a88071817b521e"
+                },
+                {
+                    "topic": "Data types",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t3",
+                    "_id": "645bad0d19a88071817b521f"
+                },
+                {
+                    "topic": "Classes",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t4",
+                    "_id": "645bad0d19a88071817b5220"
+                },
+                {
+                    "topic": "Strings",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t5",
+                    "_id": "645bad0d19a88071817b5221"
+                },
+                {
+                    "topic": "Loops",
+                    "length": "1200000",
+                    "s3_link": "http://thecodelibrary.in/Python-101/t6",
+                    "_id": "645bad0d19a88071817b5222"
+                }
+            ],
+            "price": "600"
+        }
+    ]
+}

@@ -2,7 +2,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:codelibrary/colors.dart';
-import 'package:codelibrary/mainScreens/homePage.dart';
 import 'package:codelibrary/mainScreens/myHome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

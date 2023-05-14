@@ -1,13 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors, unused_local_variable
 
+import 'dart:convert';
+import 'package:codelibrary/mainScreens/courseDetail.dart';
+import 'package:codelibrary/mainScreens/data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'package:codelibrary/colors.dart';
 import 'package:codelibrary/login.dart';
-import 'package:codelibrary/mainScreens/courseDetail.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -17,6 +19,8 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -200,161 +204,121 @@ class _MyHomeState extends State<MyHome> {
             child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
-                  children: [
-                    RegisteredRow(), // Show Registered Row
-                    AvailabledRow(), // Show Available Row
-                  ],
+                  children: [screenWidth >= 600 ? Desktop() : Mobile()],
                 )),
           )),
       backgroundColor: screenBgcolor,
     );
   }
 }
+class Mobile extends StatefulWidget {
+  const Mobile({super.key});
 
-// Card used in all
-class CourseCard extends StatelessWidget {
-  const CourseCard({super.key});
+  @override
+  State<Mobile> createState() => _MobileState();
+}
+
+class _MobileState extends State<Mobile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    var data = await rootBundle.loadString("assets/data.json");
+    var decodedData = jsonDecode(data);
+    var courseData = decodedData["availableCourses"];
+    // print(courseData);
+    Datamodel.Courses = List.from(courseData)
+        .map<Data>((course) => Data.fromMap(course))
+        .toList();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-      width: screenWidth <= 610 ? screenWidth - 50 : 500,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        clipBehavior: Clip.antiAlias,
-        color: cardBgcolor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              "Course Name".text.color(simpleWhite).xl.make(),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.star).iconColor(simpleWhite),
-                      Icon(Icons.star).iconColor(simpleWhite),
-                      Icon(Icons.star).iconColor(simpleWhite),
-                      Icon(Icons.star).iconColor(simpleWhite),
-                      Icon(Icons.star_outline).iconColor(simpleWhite),
-                    ],
-                  ),
-                  Wrap(
-                    children: [
-                      "₹ 1449".text.color(simpleWhite).bold.xl3.make()
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // Languages
-              Row(
-                children: [
-                  Icon(Icons.type_specimen).iconColor(simpleWhite),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  "Languages : ".text.color(simpleWhite).xl.make(),
-                  "English".text.xl.color(simpleWhite).bold.make()
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-              Row(
-                children: [
-                  Icon(Icons.bar_chart).iconColor(simpleWhite),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  "Type : ".text.color(simpleWhite).xl.make(),
-                  "Beginner".text.xl.color(beginner).bold.make()
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Divider(
-                thickness: 2,
-                color: lightWhite,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Wrap(
-                children: [
-                  Wrap(
-                    children: [
-                      Container(
-                        width: 150,
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(width: 2, color: simpleWhite),
-                            color: Colors.transparent),
-                        child: Row(children: [
-                          Icon(Icons.play_arrow).iconColor(simpleWhite),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          "Intro Video"
-                              .text
-                              .color(simpleWhite)
-                              .wrapWords(true)
-                              .uppercase
-                              .make()
-                        ]),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        width: 110,
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(width: 2, color: simpleWhite),
-                            color: Colors.transparent),
-                        child: Row(children: [
-                          Icon(Icons.add).iconColor(simpleWhite),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          "Details".text.color(simpleWhite).uppercase.make()
-                        ]),
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.favorite).iconColor(Colors.white),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ],
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 30,
         ),
-      ),
+        "Registered Course"
+            .text
+            .uppercase
+            .underline
+            .xl2
+            .wordSpacing(2)
+            .letterSpacing(2)
+            .color(simpleWhite)
+            .make(),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 280,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: Datamodel.Courses.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseContent(title: Datamodel.Courses[index].title, price: Datamodel.Courses[index].price,) )),
+
+                  child: MobileCourseCard(
+                    name: Datamodel.Courses[index].title,
+                    price: Datamodel.Courses[index].price,
+                  ),
+                );
+              }),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        "Available Course"
+            .text
+            .uppercase
+            .underline
+            .xl2
+            .wordSpacing(2)
+            .letterSpacing(2)
+            .color(simpleWhite)
+            .make(),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 280,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: Datamodel.Courses.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseContent(title: Datamodel.Courses[index].title, price: Datamodel.Courses[index].price,) )),
+
+                  child: MobileCourseCard(
+                    name: Datamodel.Courses[index].title,
+                    price: Datamodel.Courses[index].price,
+                  ),
+                );
+              }),
+        ),
+      ],
     );
   }
 }
 
-// Registered course row
-class RegisteredRow extends StatelessWidget {
-  RegisteredRow({super.key});
+class Desktop extends StatefulWidget {
+  Desktop({super.key});
 
+  @override
+  State<Desktop> createState() => _DesktopState();
+}
+
+class _DesktopState extends State<Desktop> {
   final _scrollController = ScrollController();
+  final _scrollController2 = ScrollController();
 
   void _scrollLeft() {
     _scrollController.animateTo(
@@ -371,11 +335,42 @@ class RegisteredRow extends StatelessWidget {
       curve: Curves.ease,
     );
   }
+  void _scrollLeft2() {
+    _scrollController2.animateTo(
+      _scrollController2.offset - 500,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+
+  void _scrollRight2() {
+    _scrollController2.animateTo(
+      _scrollController2.offset + 500,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    var data = await rootBundle.loadString("assets/data.json");
+    var decodedData = jsonDecode(data);
+    var courseData = decodedData["availableCourses"];
+    // print(courseData);
+    Datamodel.Courses = List.from(courseData)
+        .map<Data>((course) => Data.fromMap(course))
+        .toList();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(
         height: 30,
@@ -392,101 +387,46 @@ class RegisteredRow extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      screenWidth >= 610
-          ? Center(
-              child: SizedBox(
-                width: 1610,
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: _scrollLeft,
-                      icon: Icon(Icons.arrow_left)
-                          .iconColor(simpleWhite)
-                          .iconSize(40),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        child: Container(
-                          child: Row(
-                            children: <Widget>[
-                              // Desktop
-                              GestureDetector(
-                                  onTap: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              CourseContent())),
-                                  child: CourseCard()),
-                              CourseCard(),
-                              CourseCard(),
-                              CourseCard(),
-                              CourseCard(),
-                            ],
+      Center(
+        child: Container(
+          width: 1610,
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: _scrollLeft,
+                icon:
+                    Icon(Icons.arrow_left).iconColor(simpleWhite).iconSize(40),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Container(
+                  height: 280,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: _scrollController,
+                      itemCount: Datamodel.Courses.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseContent(title: Datamodel.Courses[index].title, price: Datamodel.Courses[index].price,) )),
+
+                          child: MobileCourseCard(
+                            name: Datamodel.Courses[index].title,
+                            price: Datamodel.Courses[index].price,
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    IconButton(
-                      onPressed: _scrollRight,
-                      icon: Icon(Icons.arrow_right)
-                          .iconColor(simpleWhite)
-                          .iconSize(40),
-                    ),
-                  ],
+                        );
+                      }),
                 ),
               ),
-            )
-          // Mobile
-          : SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  // Mobile
-                  GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => CourseContent())),
-                      child: CourseCard()),
-                  CourseCard(),
-                  CourseCard(),
-                  CourseCard(),
-                  CourseCard(),
-                ],
+              SizedBox(width: 16),
+              IconButton(
+                onPressed: _scrollRight,
+                icon:
+                    Icon(Icons.arrow_right).iconColor(simpleWhite).iconSize(40),
               ),
-            ),
-    ]);
-  }
-}
-
-// Aailable course row
-class AvailabledRow extends StatelessWidget {
-  AvailabledRow({super.key});
-
-  final _scrollController = ScrollController();
-
-  void _scrollLeft() {
-    _scrollController.animateTo(
-      _scrollController.offset - 500,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  void _scrollRight() {
-    _scrollController.animateTo(
-      _scrollController.offset + 500,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            ],
+          ),
+        ),
+      ),
       SizedBox(
         height: 30,
       ),
@@ -502,99 +442,54 @@ class AvailabledRow extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      screenWidth >= 610
-          ? Center(
-              child: Container(
-                width: 1610,
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: _scrollLeft,
-                      icon: Icon(Icons.arrow_left)
-                          .iconColor(simpleWhite)
-                          .iconSize(40),
-                    ),
-                    SizedBox(width: 16),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: const [
-                            // Desktop
-                            CourseCard(),
-                            CourseCard(),
-                            CourseCard(),
-                            CourseCard(),
-                            CourseCard(),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 16),
-                    IconButton(
-                      onPressed: _scrollRight,
-                      icon: Icon(Icons.arrow_right)
-                          .iconColor(simpleWhite)
-                          .iconSize(40),
-                    ),
-                  ],
+      Center(
+        child: Container(
+          width: 1610,
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: _scrollLeft2,
+                icon:
+                    Icon(Icons.arrow_left).iconColor(simpleWhite).iconSize(40),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Container(
+                  height: 280,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: _scrollController2,
+                      itemCount: Datamodel.Courses.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+        onTap: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseContent(title: Datamodel.Courses[index].title, price: Datamodel.Courses[index].price,) )),
+
+                          child: MobileCourseCard(
+                            name: Datamodel.Courses[index].title,
+                            price: Datamodel.Courses[index].price,
+                          ),
+                        );
+                      }),
                 ),
               ),
-            )
-          : SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: const [
-                  // mobile
-                  CourseCard(),
-                  CourseCard(),
-                  CourseCard(),
-                  CourseCard(),
-                  CourseCard(),
-                ],
+              SizedBox(width: 16),
+              IconButton(
+                onPressed: _scrollRight2,
+                icon:
+                    Icon(Icons.arrow_right).iconColor(simpleWhite).iconSize(40),
               ),
-            ),
+            ],
+          ),
+        ),
+      )
     ]);
   }
 }
 
-class MyCourse extends StatelessWidget {
-  const MyCourse({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: "My Courses".text.xl2.bold.color(simpleWhite).make(),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: SingleChildScrollView(
-          child: Center(
-              child: Container(
-        padding: EdgeInsets.all(15),
-        width: 800,
-        child: 
-        Column(
-          children:const [
-        OwnCourses(CourseName: "Python for Beggineers, Data analytics", CoursePrice: "1550", progress: "50", pageRoute: PythonForBegginers(),),
-        SizedBox(height: 10,),
-        OwnCourses(CourseName: "Python for Beggineers, Data analytics", CoursePrice: "1550", progress: "50", pageRoute: PythonForBegginers(),),
-        SizedBox(height: 10,),
-        OwnCourses(CourseName: "Python for Beggineers, Data analytics", CoursePrice: "1550", progress: "50", pageRoute: PythonForBegginers(),),
-        SizedBox(height: 10,),
-        OwnCourses(CourseName: "Python for Beggineers, Data analytics", CoursePrice: "1550", progress: "50", pageRoute: PythonForBegginers(),),
-        SizedBox(height: 10,),
 
-          ],
-        )
 
-      ))),
-      backgroundColor: screenBgcolor,
-    );
-  }
-}
+// 
 
 class OwnCourses extends StatelessWidget {
   final Widget pageRoute;
@@ -656,5 +551,214 @@ class PythonForBegginers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
+  }
+}
+
+class MyCourse extends StatelessWidget {
+  const MyCourse({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: "My Courses".text.xl2.bold.color(simpleWhite).make(),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: SingleChildScrollView(
+          child: Center(
+              child: Container(
+                  padding: EdgeInsets.all(15),
+                  width: 800,
+                  child: Column(
+                    children: const [
+                      OwnCourses(
+                        CourseName: "Python for Beggineers, Data analytics",
+                        CoursePrice: "1550",
+                        progress: "50",
+                        pageRoute: PythonForBegginers(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      OwnCourses(
+                        CourseName: "Python for Beggineers, Data analytics",
+                        CoursePrice: "1550",
+                        progress: "50",
+                        pageRoute: PythonForBegginers(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      OwnCourses(
+                        CourseName: "Python for Beggineers, Data analytics",
+                        CoursePrice: "1550",
+                        progress: "50",
+                        pageRoute: PythonForBegginers(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      OwnCourses(
+                        CourseName: "Python for Beggineers, Data analytics",
+                        CoursePrice: "1550",
+                        progress: "50",
+                        pageRoute: PythonForBegginers(),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  )))),
+      backgroundColor: screenBgcolor,
+    );
+  }
+}
+
+
+class MobileCourseCard extends StatelessWidget {
+  final String name;
+  final String price;
+  const MobileCourseCard({
+    Key? key,
+    required this.name,
+    required this.price,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+      width: screenWidth <= 610 ? screenWidth - 50 : 500,
+    height: 280,
+      child: InkWell(
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          clipBehavior: Clip.antiAlias,
+          color: cardBgcolor,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                name.text.color(simpleWhite).xl3.bold.color(simpleWhite).maxLines(1).overflow(TextOverflow.ellipsis).make(),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.star).iconColor(simpleWhite),
+                        Icon(Icons.star).iconColor(simpleWhite),
+                        Icon(Icons.star).iconColor(simpleWhite),
+                        Icon(Icons.star).iconColor(simpleWhite),
+                        Icon(Icons.star_outline).iconColor(simpleWhite),
+                      ],
+                    ),
+                    Wrap(
+                      children: [
+                        "₹ ${price}".text.color(simpleWhite).bold.xl3.make()
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                // Languages
+                Row(
+                  children: [
+                    Icon(Icons.type_specimen).iconColor(simpleWhite),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    "Languages : ".text.color(simpleWhite).xl.make(),
+                    "English".text.xl.color(simpleWhite).bold.make()
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+      
+                Row(
+                  children: [
+                    Icon(Icons.bar_chart).iconColor(simpleWhite),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    "Type : ".text.color(simpleWhite).xl.make(),
+                    "Beginner".text.xl.color(beginner).bold.make()
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Divider(
+                  thickness: 2,
+                  color: lightWhite,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  children: [
+                    Wrap(
+                      children: [
+                        Container(
+                          width: 150,
+                          padding: EdgeInsets.all(7),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(width: 2, color: simpleWhite),
+                              color: Colors.transparent),
+                          child: Row(children: [
+                            Icon(Icons.play_arrow).iconColor(simpleWhite),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            "Intro Video"
+                                .text
+                                .color(simpleWhite)
+                                .wrapWords(true)
+                                .uppercase
+                                .make()
+                          ]),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          width: 110,
+                          padding: EdgeInsets.all(7),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(width: 2, color: simpleWhite),
+                              color: Colors.transparent),
+                          child: Row(children: [
+                            Icon(Icons.add).iconColor(simpleWhite),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            "Details".text.color(simpleWhite).uppercase.make()
+                          ]),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.favorite).iconColor(Colors.white),
+                      onPressed: () {},
+                    )
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

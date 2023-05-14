@@ -1,5 +1,4 @@
-import 'package:codelibrary/Signup.dart';
-import 'package:codelibrary/login.dart';
+
 import 'package:codelibrary/mainScreens/myHome.dart';
 import 'package:flutter/material.dart';
 void main() {
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home:LoginScreen(),
+      home:MyHome(),
     );
   }
 }
